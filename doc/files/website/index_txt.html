@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: index.txt</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>index.txt</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>website/index.txt
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Sun Sep 30 15:46:14 +0200 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+h1. literate_maruku
+</p>
+<p>
+h1. &amp;x2192; &#8216;literate_maruku&#8216;
+</p>
+<p>
+h2. What
+</p>
+<p>
+Literate Maruku is a literate programming libary for ruby based on the
+markdown libary maruku. This is basically what the name say, isn&#8216;t
+it?
+</p>
+<p>
+h2. Installing
+</p>
+<p>
+&lt;pre syntax=&quot;ruby&quot;&gt;sudo gem install
+literate_maruku&lt;/pre&gt;
+</p>
+<p>
+h2. The basics
+</p>
+<p>
+There are to possible accesses to the libary. A programming API and a
+command line interface. The first may be used to write better documented
+tests, for example. Just write a little bit of code in your test_helper and
+call Literate Maruku there and your markdown formatted tests will be
+executed.
+</p>
+<p>
+The command line interface may the be used inside of a rake task for
+example to generate some html files out of your test files, that
+demonstrate their usage. We have used this approach in ContextR, so have a
+look there to get some input.
+</p>
+<p>
+h2. Demonstration of usage
+</p>
+<p>
+h3. The Markdown Syntax
+</p>
+<p>
+Literate Maruku simply extends the functionality of Maruku and adds some
+methods to make standard use cases easier. You may find detailed
+information about maruku at &quot;their project page&quot;:<a
+href="http://maruku.rubyforge.org">maruku.rubyforge.org</a>/ . They added
+some nice features to &quot;Markdown formatting&quot;:<a
+href="http://daringfireball.net/projects/markdown/syntax">daringfireball.net/projects/markdown/syntax</a>
+, esp. the &quot;meta data syntax&quot;:<a
+href="http://maruku.rubyforge.org/proposal.html">maruku.rubyforge.org/proposal.html</a>
+which made implementing literate maruku a charm.
+</p>
+<p>
+Wanna see examples? Okay, here they are:
+</p>
+<p>
+h4. Markdown
+</p>
+<p>
+&lt;pre&gt;&lt;code&gt; This is a normal paragraph, followed by a plain old
+code block
+</p>
+<pre>
+    literate_maruku == maruku + ruby
+</pre>
+<p>
+And the following code block will not only be rendered, but also executed.
+</p>
+<pre>
+    def echo_block(string)
+      (0...(text.size)).map{|i| text[0..i]}.reverse.join(&quot; ... &quot;)
+    end
+</pre>
+<p>
+{: execute}
+</p>
+<p>
+And, finally, the following block will be executed and its output will be
+rendered as well.
+</p>
+<pre>
+    echo_block(&quot;hallo&quot;)
+</pre>
+<p>
+{: execute attach_output} &lt;/code&gt;&lt;/pre&gt;
+</p>
+<p>
+This is how you may write your ruby code. And this is what will be
+generated out of it:
+</p>
+<p>
+h4. HTML
+</p>
+<p>
+This is a normal paragraph, followed by a plain old code block
+</p>
+<p>
+&lt;pre&gt;<tt>literate_maruku == maruku + ruby </tt>&lt;/pre&gt;
+</p>
+<p>
+And the following code block will not only be rendered, but also executed.
+</p>
+<pre>
+  def echo_block(string)
+    (0...(text.size)).map{|i| text[0..i]}.reverse.join(&quot; ... &quot;)
+  end
+</pre>
+<p>
+And, finally, the following block will be executed and its output will be
+rendered as well.
+</p>
+<pre>
+  echo_block(&quot;hallo&quot;)
+  &gt;&gt; &quot;hello ... hell ... hel ... he ... h&quot;
+</pre>
+<p>
+h3. The command line interface
+</p>
+<p>
+Simply call @literate_maruku filename.mkd@ to load your markdown formatted
+ruby files. This will execute the code but not generate any output. It
+basically works like a simpe @ruby filename.rb@ call, but without all the
+command line parameters the @ruby@ command supports.
+</p>
+<p>
+If you like to generate some html files, append an additional parameter,
+which tells literate_maruku where to put the output. @literate_maruku
+&#8212;output_path=test filename.mkd@ would file the output of
+@filename.mkd@ to @test/filename.html@. That&#8216;s all, folks.
+</p>
+<p>
+h3. The programming interface
+</p>
+<p>
+To use Literate Maruku in your own special way simply use the
+@LiterateMaruku#require@ method.
+</p>
+<pre>
+    require 'literate_maruku'
+
+    LiterateMaruku.require('filename.mkd') # or
+    LiterateMaruku.require('filename.mkd', :output =&gt; &quot;test&quot;)
+</pre>
+<p>
+These will have the same result as the command line examples.
+</p>
+<p>
+If you are unhappy with these little possibilities, no problem: You may
+still use the standard maruku interface to do with your markdown string,
+what you like after require&#8216;ing literate_maruku the maruku code base
+is extended for the literate programming style.
+</p>
+<p>
+h2. Other resources
+</p>
+<ul>
+<li>&quot;Mailing list&quot;:<a
+href="http://groups.google.com/group/rug-b">groups.google.com/group/rug-b</a>
+
+</li>
+<li>&quot;RDoc&quot;:<a
+href="http://rug-b.rubyforge.org/literate_maruku/rdoc">rug-b.rubyforge.org/literate_maruku/rdoc</a>
+
+</li>
+</ul>
+<p>
+h2. How to submit patches
+</p>
+<p>
+Read the &quot;8 steps for fixing other people&#8216;s code&quot;:<a
+href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code">drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code</a>/
+and for section &quot;8b: Submit patch to Google Groups&quot;:<a
+href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups">drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups</a>,
+use the Google Group above.
+</p>
+<p>
+The trunk repository is
+<tt>svn://rubyforge.org/var/svn/rug-b/literate_maruku/trunk</tt> for
+anonymous access.
+</p>
+<p>
+h2. License
+</p>
+<p>
+This code is free to use under the terms of the MIT license.
+</p>
+<p>
+h2. Contact
+</p>
+<p>
+Comments are welcome. Send an email to &quot;Gregor Schmidt&quot;:<a
+href="mailto:ruby@schmidtwisser.de">ruby@schmidtwisser.de</a> or via the
+&quot;mailing list&quot;:<a
+href="http://groups.google.com/group/literate_maruku">groups.google.com/group/literate_maruku</a>
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

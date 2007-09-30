@@ -1,0 +1,25 @@
+Test Literate Maruku Document
+=============================
+
+This contains some code examples, that are used for testing.
+
+Normal markdown code environments are simply rendered
+
+    $this_code_block_will_not_be_executed = true
+
+Annotated code environments are rendered and executed - in the root context.
+
+    $this_code_block_will_be_executed = true
+{: execute}
+
+Code definitions also work across code environments, of course.
+
+    a_test_method = lambda do |string|
+      string
+    end
+{: execute}
+
+And you may automatically attach the output of your code blocks.
+
+    a_test_method.call("a test string")
+{: execute attach_output}
