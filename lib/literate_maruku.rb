@@ -30,7 +30,7 @@ module LiterateMaruku
     end
 
     def markdown_string(file)
-      dir = $:.find { |load_dir| File.exists?(File.join(load_dir, file)) }
+      dir = $:.find{ |load_dir| File.exists?(File.join(load_dir, file)) } || "."
       File.open(File.join(dir, file)){|f| f.readlines.join}
     end
 
@@ -67,17 +67,22 @@ module MaRuKu
     module HTML
       unless instance_methods.include? "to_html_code_using_pre_with_literate"
         def to_html_code_using_pre_with_literate(source)
-          if get_setting(:execute)
+          if is_true?(:execute)
             value = eval(source, $literate_maruku_binding)
-            source += "\n>> " + value.inspect if get_setting(:attach_output)
+            source += "\n>> " + value.inspect if is_true?(:attach_output)
           end
-          to_html_code_using_pre_without_literate(source) if !get_setting(:hide)
+          to_html_code_using_pre_without_literate(source) if !is_true?(:hide)
         end
 
         alias_method :to_html_code_using_pre_without_literate,
                      :to_html_code_using_pre
         alias_method :to_html_code_using_pre,
                      :to_html_code_using_pre_with_literate
+
+        private
+        def is_true?(key)
+          get_setting(key) && get_setting(key) != "false"
+        end
       end
     end
   end
