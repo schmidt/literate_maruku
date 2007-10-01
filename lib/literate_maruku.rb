@@ -13,6 +13,12 @@ module LiterateMaruku
   # attach the result to the generated document. See our website or the tests 
   # for further examples.
   module ClassMethods
+    # This accessor stores the binding, in which the code will be executed. By
+    # default, this is the root context. Use the setter to change it, if you 
+    # would like to have all your code in a special context, a module for 
+    # example.
+    attr_accessor :binding
+
     # <tt>file</tt> has to have a <tt>.mkd</tt> extension. The LOAD_PATH will 
     # be used to find the file. It will be simply executed. If called with 
     # <tt>:output => dir</tt> html generated from the markdown document will 
@@ -46,7 +52,7 @@ module LiterateMaruku
   extend ClassMethods
 end
 
-$literate_maruku_binding = binding
+LiterateMaruku.binding = binding
 
 # This is the basic module provided by Maruku, but Literate Maruku added three
 # parameters to configure its behaviour.
@@ -68,7 +74,7 @@ module MaRuKu
       unless instance_methods.include? "to_html_code_using_pre_with_literate"
         def to_html_code_using_pre_with_literate(source)
           if is_true?(:execute)
-            value = eval(source, $literate_maruku_binding)
+            value = eval(source, LiterateMaruku.binding)
             source += "\n>> " + value.inspect if is_true?(:attach_output)
           end
           to_html_code_using_pre_without_literate(source) if !is_true?(:hide)
