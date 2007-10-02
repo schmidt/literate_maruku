@@ -10,8 +10,8 @@ module LiterateMaruku
   # Besides these methods, maruku itself is exented to handle the new meta-data
   # keywords. In your Markdown code use <tt>{: execute}</tt> to evaluate the 
   # code block and <tt>{: execute attach_output}</tt> to evaluate the code and 
-  # attach the result to the generated document. See our website or the tests 
-  # for further examples.
+  # attach the result to the generated document. If you need to execute code
+  # that should not be rendered attach <tt>{: execute hide}</tt>.
   module ClassMethods
     # This accessor stores the binding, in which the code will be executed. By
     # default, this is the root context. Use the setter to change it, if you 
@@ -19,20 +19,34 @@ module LiterateMaruku
     # example.
     attr_accessor :binding
 
-    # <tt>file</tt> has to have a <tt>.mkd</tt> extension. The LOAD_PATH will 
-    # be used to find the file. It will be simply executed. If called with 
-    # <tt>:output => dir</tt> html generated from the markdown document will 
-    # be stored in the given directory. The resulting file name will include 
-    # the basename of <tt>file</tt> and the <tt>.html</tt> file extension.
+    # <tt>file</tt> has to have a <tt>.mkd</tt> extension. The 
+    # <tt>LOAD_PATH</tt> will be used to find the file. It will be simply 
+    # executed. If called with <tt>:output => dir</tt>, html generated from the 
+    # markdown document will be stored in the given directory. The resulting 
+    # file name will include the basename of <tt>file</tt> and the 
+    # <tt>.html</tt> file extension.
+    #
+    # Additionally default values, that influence the code generation and 
+    # execution may be set.
+    #
+    #   LiterateMaruku.require("file.mkd", :output => ".",
+    #                                      :attributes => {:execute => true})
+    #
+    # will enable execution for all code block per default, for example. Other
+    # options are <tt>:attach_output</tt> and <tt>:hide</tt>.
     def require(file, options = {})
       document = generate_output(file)
-      store_in_file(File.basename(file, ".mkd"), document, options[:output])
-      document 
+
+      document.attributes.merge!(options[:attributes] || {})
+      content = options[:inline] ? document.to_html : document.to_html_document
+      store_in_file(File.basename(file, ".mkd"), content, options[:output])
+
+      content
     end
 
     private
     def generate_output(file)
-      Maruku.new(markdown_string(file)).to_html_document
+      Maruku.new(markdown_string(file))
     end
 
     def markdown_string(file)
@@ -64,6 +78,9 @@ LiterateMaruku.binding = binding
 # Set <tt>MaRuKu::Globals[:attach_output]</tt> to true, if you like to attach 
 # the results of code blocks by default. To disable this option for single 
 # blocks, add <tt>{: attach_output=false}</tt>.
+#
+# *Note*: These settings may also be configured on an instance basis, when
+# calling <tt>LiterateMaruku#require</tt> with an attributes Hash.
 module MaRuKu
   Globals[:execute] = false
   Globals[:attach_output] = false

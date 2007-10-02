@@ -1,4 +1,13 @@
-== 0.0.1 2007-09-30
+== 0.1.1 2007-10-04
+
+* minor enhancement:
+  * Removed global variable to fetch the root binding, use class variable 
+    instead
+  * Configurable default values for execute, attach_output and hide
+  * looking for the file to load in current directory as well
+  * updated docs
+
+== 0.1.0 2007-09-30
 
 * 1 major enhancement:
   * Initial release
