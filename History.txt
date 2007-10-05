@@ -1,4 +1,4 @@
-== 0.1.1 2007-10-04
+== 0.1.1 2007-10-05
 
 * minor enhancement:
   * Removed global variable to fetch the root binding, use class variable 
