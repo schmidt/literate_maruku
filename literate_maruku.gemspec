@@ -10,27 +10,26 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Gregor Schmidt"]
   s.date = %q{2009-11-28}
+  s.default_executable = %q{literate_maruku}
   s.description = %q{Given Ruby's open classes and Maruku's powerful parser architecture, literate_maruku provides a basic literate programming environment for Ruby.}
   s.email = %q{ruby@schmidtwisser.de}
+  s.executables = ["literate_maruku"]
   s.extra_rdoc_files = [
-    "README.txt"
+    "README.rdoc"
   ]
   s.files = [
-    "History.txt",
+    ".gitignore",
+     "History.txt",
      "License.txt",
-     "README.txt",
+     "README.rdoc",
      "Rakefile",
+     "bin/literate_maruku",
      "lib/literate_maruku.rb",
-     "lib/literate_maruku/version.rb",
-     "log/debug.log",
+     "literate_maruku.gemspec",
      "test/literate_maruku_test.rb",
      "test/test_document.mkd",
      "test/test_helper.rb",
-     "website/index.html",
-     "website/index.txt",
-     "website/javascripts/rounded_corners_lite.inc.js",
-     "website/stylesheets/screen.css",
-     "website/template.rhtml"
+     "version.yml"
   ]
   s.homepage = %q{http://github.com/schmidt/literate_maruku}
   s.rdoc_options = ["--charset=UTF-8"]
