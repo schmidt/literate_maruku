@@ -50,8 +50,15 @@ module LiterateMaruku
     end
 
     def markdown_string(file)
-      dir = $:.find{ |load_dir| File.exists?(File.join(load_dir, file)) } || "."
-      File.open(File.join(dir, file)){|f| f.readlines.join}
+      if File.exist?(file)
+        filename = file
+      else
+        dir = $:.find{ |load_dir| File.exist?(File.join(load_dir, file)) }
+        raise LoadError, "no such file to load -- #{file}" if dir.nil?
+
+        filename = File.join(dir, file)
+      end
+      File.open(filename) { |f| f.readlines.join }
     end
 
     def store_in_file(file_base_name, string, directory)

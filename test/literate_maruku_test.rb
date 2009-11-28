@@ -63,4 +63,10 @@ class LiterateMarukuTest < Test::Unit::TestCase
     LiterateMaruku.require(@mkd_filename, :output => @dirname)
     assert File.exists?(@html_filename)
   end
+
+  def test_require_should_raise_load_error_for_missing_files
+    assert_raise(LoadError) do
+      LiterateMaruku.require("missing_file.mkd")
+    end
+  end
 end
