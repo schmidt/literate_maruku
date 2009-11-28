@@ -109,13 +109,7 @@ Literate Maruku is currently only tested and known to work with
 * JRuby 1.x
 
 
-== Futher Documentation
-
-See {LiterateMaruku::ClassMethods}[#todo] for API documentation or our website for more 
-detailed usage information.
-
-Also have a look at the following resources.
-
+== Additional Resources
 
 * {Project's website}[http://github.com/schmidt/literate_maruku/]
 * {API doc}[http://rdoc.info/projects/schmidt/literate_maruku]
