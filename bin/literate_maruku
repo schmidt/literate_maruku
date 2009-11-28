@@ -49,9 +49,14 @@ begin
 rescue LoadError
   require File.dirname(__FILE__) + "/../lib/literate_maruku"
 end
+require "pathname"
 
 if OPTIONS[:output_path]
-  path = File.join(Dir.pwd, OPTIONS[:output_path])
+  if Pathname(OPTIONS[:output_path]).absolute?
+    path = OPTIONS[:output_path]
+  else
+    path = File.join(Dir.pwd, OPTIONS[:output_path])
+  end
   puts "Generating output to \"#{OPTIONS[:output_path]}\""
   LiterateMaruku.require(ARGV[0], :output => path)
 else
