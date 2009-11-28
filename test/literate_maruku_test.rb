@@ -39,16 +39,14 @@ class LiterateMarukuTest < Test::Unit::TestCase
     @dirname = File.dirname(__FILE__)
     @base_filename = "test_document"
 
-    @mkd_filename =  @base_filename + ".mkd"
-    @html_filename =  @base_filename + ".html"
+    @mkd_filename =  File.join(@dirname, @base_filename + ".mkd")
+    @html_filename = File.join(@dirname, @base_filename + ".html")
 
-    @full_filename = File.join(@dirname, @html_filename)
-
-    File.delete(@full_filename) if File.exists?(@full_filename)
+    teardown
   end
 
   def teardown
-    File.delete(@full_filename) if File.exists?(@full_filename)
+    File.delete(@html_filename) if File.exists?(@html_filename)
   end
 
   def test_require_should_execute_annotated_code_environments
@@ -56,9 +54,13 @@ class LiterateMarukuTest < Test::Unit::TestCase
     assert $this_code_block_will_be_executed 
   end
 
+  def test_require_should_not_execute_every_code_environment
+    LiterateMaruku.require(@mkd_filename)
+    assert !$this_code_block_will_not_be_executed 
+  end
+
   def test_require_should_generate_an_html_file
     LiterateMaruku.require(@mkd_filename, :output => @dirname)
-
-    assert File.exists?(@full_filename)
+    assert File.exists?(@html_filename)
   end
 end

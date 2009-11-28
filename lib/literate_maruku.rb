@@ -1,7 +1,7 @@
 $:.unshift File.dirname(__FILE__)
 
 require "rubygems"
-gem "maruku"
+gem "maruku", ">= 0.6.0"
 require "maruku"
 
 module LiterateMaruku
@@ -44,7 +44,7 @@ module LiterateMaruku
       content
     end
 
-    private
+  private
     def generate_output(file)
       Maruku.new(markdown_string(file))
     end
@@ -102,7 +102,7 @@ module MaRuKu
         alias_method :to_html_code_using_pre,
                      :to_html_code_using_pre_with_literate
 
-        private
+      private
         def is_true?(key)
           get_setting(key) && get_setting(key) != "false"
         end

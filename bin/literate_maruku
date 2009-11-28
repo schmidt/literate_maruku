@@ -11,8 +11,6 @@ end
 
 require 'optparse'
 
-# NOTE: the option -p/--path= is given as an example, and should probably be replaced in your application.
-
 OPTIONS = {
   :output_path     => nil
 }
@@ -25,7 +23,7 @@ corresponding code in a style of literate programming. This is the
 command line front end of the literate_maruku gem. You may find 
 additional information on our website 
 
-http://rug-b.rubyforge.org/literate_maruku/
+http://github.com/schmidt/literate_maruku/
 
 Usage: #{File.basename($0)} [options] filename.mkd
 
