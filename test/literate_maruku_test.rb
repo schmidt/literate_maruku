@@ -1,12 +1,10 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
 
-class TestMaRuKu < Test::Unit::TestCase
+class MaRuKuTest < Test::Unit::TestCase
   def test_should_not_execute_each_and_every_code_environment
     doc = Maruku.new(%q{    THIS_CONSTANT_WILL_NOT_BE_DEFINED = true})
 
-    output = %q{
-<pre><code>THIS_CONSTANT_WILL_NOT_BE_DEFINED = true</code></pre>
-}
+    output = %q{<pre><code>THIS_CONSTANT_WILL_NOT_BE_DEFINED = true</code></pre>}
 
     assert_equal output, doc.to_html 
     assert !Object.const_defined?("THIS_CONSTANT_WILL_NOT_BE_DEFINED")
@@ -17,9 +15,7 @@ class TestMaRuKu < Test::Unit::TestCase
     TEST_WORKS = true
 {: execute}})
 
-    output = %q{
-<pre><code>TEST_WORKS = true</code></pre>
-}
+    output = %q{<pre><code>TEST_WORKS = true</code></pre>}
 
     assert_equal output, doc.to_html 
     assert Object.const_defined?("TEST_WORKS")
@@ -31,10 +27,8 @@ class TestMaRuKu < Test::Unit::TestCase
     1 + 1 == 2
 {: execute attach_output}})
 
-    output = %q{
-<pre><code>1 + 1 == 2
-&gt;&gt; true</code></pre>
-}
+    output = %q{<pre><code>1 + 1 == 2
+&gt;&gt; true</code></pre>}
 
     assert_equal output, doc.to_html 
   end
