@@ -1,0 +1,137 @@
+= Literate Maruku
+
+Literate Maruku is a literate programming libary for ruby based on the markdown
+libary maruku. This is basically what the name say, isn't it?
+
+== The Basics
+
+There are two possible accesses to the libary. A programming API and a command 
+line interface. The first may be used to write better documented tests, 
+for example. Just write a little bit of code in your test_helper and call
+Literate Maruku there and your markdown formatted tests will be executed.
+
+The command line interface may the be used inside of a rake task, e.g. to
+generate some html files out of your test files demonstrating their usage. 
+We have used this approach in ContextR, so have a look there to get some input.
+
+
+== Demonstration of Use
+
+=== The Markdown Syntax
+
+Literate Maruku simply extends the functionality of Maruku and adds some
+methods to make standard use cases easier. You may find detailed information
+about maruku at {their project page}[http://maruku.rubyforge.org/]. They added
+some nice features to {Markdown
+formatting}[http://daringfireball.net/projects/markdown/syntax], esp. the {meta
+data syntax}[http://maruku.rubyforge.org/proposal.html] which made implementing
+literate maruku a charm.
+
+Wanna see examples? Okay, here they are:
+
+==== Markdown
+
+  This is a normal paragraph, followed by a plain old code block
+
+      literate_maruku == maruku + ruby
+
+  And the following code block will not only be rendered, but also executed.
+
+      def echo_block(string)
+        (0...(text.size)).map{|i| text[0..i]}.reverse.join(" ... ")
+      end
+  {: execute}
+
+  And, finally, the following block will be executed and its output will be 
+  rendered as well.
+
+      echo_block("hallo")
+  {: execute attach_output}
+
+
+==== HTML
+
+This is a normal paragraph, followed by a plain old code block
+
+  literate_maruku == maruku + ruby
+
+And the following code block will not only be rendered, but also executed.
+
+  def echo_block(string)
+    (0...(text.size)).map{|i| text[0..i]}.reverse.join(" ... ")
+  end
+
+And, finally, the following block will be executed and its output will be 
+rendered as well.
+
+  echo_block("hallo")
+  >> "hello ... hell ... hel ... he ... h"
+
+
+== The Command Line Interface
+
+Simply call <tt>literate_maruku filename.mkd</tt> to load your markdown
+formatted ruby files. This will execute the code but not generate any output.
+It basically works like a simpe <tt>ruby filename.rb</tt> call, but without all
+the command line parameters the +ruby+ command supports.
+
+If you like to generate some html files, append an additional parameter, which
+tells literate_maruku where to put the output. 
+<tt>literate_maruku --output_path=test filename.mkd</tt> would file the output 
+of <tt>filename.mkd</tt> to <tt>test/filename.html</tt>. That's all, folks.
+
+== The Programming Interface
+
+To use Literate Maruku in your own special way simply use the 
+<tt>LiterateMaruku#require</tt> method.
+
+  require 'literate_maruku'
+  
+  LiterateMaruku.require('filename.mkd') # or
+  LiterateMaruku.require('filename.mkd', :output => "test")
+
+These will have the same result as the command line examples.
+
+If you are unhappy with these little possibilities, no problem: You may still
+use the standard maruku interface to do with your markdown string, what you like
+after require'ing literate_maruku the maruku code base is extended for the 
+literate programming style.
+
+
+== Installing & Compatibility
+
+  gem install literate_maruku
+
+Literate Maruku is currently only tested and known to work with 
+
+* Ruby 1.8.6 and 1.8.7 (MRI)
+
+
+== Futher Documentation
+
+See {LiterateMaruku::ClassMethods}[#todo] for API documentation or our website for more 
+detailed usage information.
+
+Also have a look at the following resources.
+
+
+* {Project's website}[http://github.com/schmidt/literate_maruku/]
+* {API doc}[http://rdoc.info/projects/schmidt/literate_maruku]
+* {Build Status on RunCodeRun}[http://runcoderun.com/schmidt/literate_maruku]
+
+
+== How to submit patches
+
+In order to submit patches, please fork the repository on GitHub, add your
+patches to your own copy and send a "Pull Request" afterwards. I will then try
+to add your submissions as soon as possible. Patches containing corresponding
+tests are always welcome.
+
+Bug reports or general feature requests should be added using GitHub Issues.
+
+
+== License
+
+This code is free to use under the terms of the MIT license. 
+
+  :include: License.txt
