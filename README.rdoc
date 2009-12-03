@@ -112,6 +112,7 @@ Literate Maruku is currently only tested and known to work with
 == Additional Resources
 
 * {Project's website}[http://github.com/schmidt/literate_maruku/]
+* {Introductory Talk about literate_maruku}[http://www.slideshare.net/schmidt/literate-maruku] (contains outdated URLs) 
 * {API doc}[http://rdoc.info/projects/schmidt/literate_maruku]
 * {Build Status on RunCodeRun}[http://runcoderun.com/schmidt/literate_maruku]
 
