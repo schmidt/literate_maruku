@@ -36,7 +36,7 @@ end
 
 class LiterateMarukuTest < Test::Unit::TestCase
   def self.this_code_block_will_not_be_executed
-    @this_code_block_will_not_be_executed || false
+    @this_code_block_will_not_be_executed ||= false
   end
 
   def self.this_code_block_will_not_be_executed=(value)
