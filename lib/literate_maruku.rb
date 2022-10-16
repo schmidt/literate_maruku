@@ -1,32 +1,31 @@
-$:.unshift File.dirname(__FILE__)
+require 'literate_maruku/version'
 
-require "rubygems"
-gem "maruku", ">= 0.6.0"
-require "maruku"
+require 'rexml'
+require 'maruku'
 
 module LiterateMaruku
   # The public interface to Literate Maruku
   #
   # Besides these methods, maruku itself is exented to handle the new meta-data
-  # keywords. In your Markdown code use <tt>{: execute}</tt> to evaluate the 
-  # code block and <tt>{: execute attach_output}</tt> to evaluate the code and 
+  # keywords. In your Markdown code use <tt>{: execute}</tt> to evaluate the
+  # code block and <tt>{: execute attach_output}</tt> to evaluate the code and
   # attach the result to the generated document. If you need to execute code
   # that should not be rendered attach <tt>{: execute hide}</tt>.
   module ClassMethods
     # This accessor stores the binding, in which the code will be executed. By
-    # default, this is the root context. Use the setter to change it, if you 
-    # would like to have all your code in a special context, a module for 
+    # default, this is the root context. Use the setter to change it, if you
+    # would like to have all your code in a special context, a module for
     # example.
     attr_accessor :binding
 
-    # <tt>file</tt> has to have a <tt>.mkd</tt> extension. The 
-    # <tt>LOAD_PATH</tt> will be used to find the file. It will be simply 
-    # executed. If called with <tt>:output => dir</tt>, html generated from the 
-    # markdown document will be stored in the given directory. The resulting 
-    # file name will include the basename of <tt>file</tt> and the 
+    # <tt>file</tt> has to have a <tt>.mkd</tt> extension. The
+    # <tt>LOAD_PATH</tt> will be used to find the file. It will be simply
+    # executed. If called with <tt>:output => dir</tt>, html generated from the
+    # markdown document will be stored in the given directory. The resulting
+    # file name will include the basename of <tt>file</tt> and the
     # <tt>.html</tt> file extension.
     #
-    # Additionally default values, that influence the code generation and 
+    # Additionally default values, that influence the code generation and
     # execution may be set.
     #
     #   LiterateMaruku.require("file.mkd", :output => ".",
@@ -78,12 +77,12 @@ LiterateMaruku.binding = binding
 # This is the basic module provided by Maruku, but Literate Maruku added three
 # parameters to configure its behaviour.
 #
-# Set <tt>MaRuKu::Globals[:execute]</tt> to true, if you like to execute code 
-# block by default. To disable the execution for single blocks, add 
+# Set <tt>MaRuKu::Globals[:execute]</tt> to true, if you like to execute code
+# block by default. To disable the execution for single blocks, add
 # <tt>{: execute=false}</tt>.
 #
-# Set <tt>MaRuKu::Globals[:attach_output]</tt> to true, if you like to attach 
-# the results of code blocks by default. To disable this option for single 
+# Set <tt>MaRuKu::Globals[:attach_output]</tt> to true, if you like to attach
+# the results of code blocks by default. To disable this option for single
 # blocks, add <tt>{: attach_output=false}</tt>.
 #
 # *Note*: These settings may also be configured on an instance basis, when
@@ -96,12 +95,12 @@ module MaRuKu
   module Out # :nodoc: all
     module HTML
       unless instance_methods.include? "to_html_code_using_pre_with_literate"
-        def to_html_code_using_pre_with_literate(source)
+        def to_html_code_using_pre_with_literate(source, code_lang=nil)
           if is_true?(:execute)
             value = eval(source, LiterateMaruku.binding)
             source += "\n>> " + value.inspect if is_true?(:attach_output)
           end
-          to_html_code_using_pre_without_literate(source) if !is_true?(:hide)
+          to_html_code_using_pre_without_literate(source, code_lang) if !is_true?(:hide)
         end
 
         alias_method :to_html_code_using_pre_without_literate,

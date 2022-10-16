@@ -1,0 +1,27 @@
+PATH
+  remote: .
+  specs:
+    literate_maruku (0.1.3)
+      maruku (>= 0.7.0)
+      rexml
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    maruku (0.7.3)
+    power_assert (2.0.2)
+    rake (13.0.6)
+    rexml (3.2.5)
+    test-unit (3.5.5)
+      power_assert
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  literate_maruku!
+  rake
+  test-unit
+
+BUNDLED WITH
+   2.1.4
