@@ -5,13 +5,13 @@ libary maruku. This is basically what the name say, isn't it?
 
 == The Basics
 
-There are two possible accesses to the libary. A programming API and a command 
-line interface. The first may be used to write better documented tests, 
+There are two possible accesses to the libary. A programming API and a command
+line interface. The first may be used to write better documented tests,
 for example. Just write a little bit of code in your test_helper and call
 Literate Maruku there and your markdown formatted tests will be executed.
 
 The command line interface may the be used inside of a rake task, e.g. to
-generate some html files out of your test files demonstrating their usage. 
+generate some html files out of your test files demonstrating their usage.
 We have used this approach in ContextR, so have a look there to get some input.
 
 
@@ -42,7 +42,7 @@ Wanna see examples? Okay, here they are:
       end
   {: execute}
 
-  And, finally, the following block will be executed and its output will be 
+  And, finally, the following block will be executed and its output will be
   rendered as well.
 
       echo_block("hallo")
@@ -61,7 +61,7 @@ And the following code block will not only be rendered, but also executed.
     (0...(text.size)).map{|i| text[0..i]}.reverse.join(" ... ")
   end
 
-And, finally, the following block will be executed and its output will be 
+And, finally, the following block will be executed and its output will be
 rendered as well.
 
   echo_block("hallo")
@@ -76,17 +76,17 @@ It basically works like a simpe <tt>ruby filename.rb</tt> call, but without all
 the command line parameters the +ruby+ command supports.
 
 If you like to generate some html files, append an additional parameter, which
-tells literate_maruku where to put the output. 
-<tt>literate_maruku --output_path=test filename.mkd</tt> would file the output 
+tells literate_maruku where to put the output.
+<tt>literate_maruku --output_path=test filename.mkd</tt> would file the output
 of <tt>filename.mkd</tt> to <tt>test/filename.html</tt>. That's all, folks.
 
 == The Programming Interface
 
-To use Literate Maruku in your own special way simply use the 
+To use Literate Maruku in your own special way simply use the
 <tt>LiterateMaruku#require</tt> method.
 
   require 'literate_maruku'
-  
+
   LiterateMaruku.require('filename.mkd') # or
   LiterateMaruku.require('filename.mkd', :output => "test")
 
@@ -94,7 +94,7 @@ These will have the same result as the command line examples.
 
 If you are unhappy with these little possibilities, no problem: You may still
 use the standard maruku interface to do with your markdown string, what you like
-after require'ing literate_maruku the maruku code base is extended for the 
+after require'ing literate_maruku the maruku code base is extended for the
 literate programming style.
 
 
@@ -102,19 +102,17 @@ literate programming style.
 
   gem install literate_maruku
 
-Literate Maruku is currently only tested and known to work with 
+Literate Maruku is currently only tested and known to work with
 
-* Ruby 1.8.6 and 1.8.7 (MRI)
-* Ruby 1.9.1 (YARV)
-* JRuby 1.x
+* Ruby 2.7, 3.0, 3.1
 
 
 == Additional Resources
 
 * {Project's website}[http://github.com/schmidt/literate_maruku/]
-* {Introductory Talk about literate_maruku}[http://www.slideshare.net/schmidt/literate-maruku] (contains outdated URLs) 
+* {Introductory Talk about literate_maruku}[http://www.slideshare.net/schmidt/literate-maruku] (contains outdated URLs)
 * {API doc}[http://rdoc.info/projects/schmidt/literate_maruku]
-* {Build Status on RunCodeRun}[http://runcoderun.com/schmidt/literate_maruku]
+* {Build Status on GitHub Actions}[https://github.com/schmidt/literate_maruku/actions]
 
 
 == How to submit patches
@@ -129,6 +127,6 @@ Bug reports or general feature requests should be added using GitHub Issues.
 
 == License
 
-This code is free to use under the terms of the MIT license. 
+This code is free to use under the terms of the MIT license.
 
   :include: License.txt
