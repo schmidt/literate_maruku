@@ -5,7 +5,7 @@ This contains some code examples, that are used for testing.
 
 Normal markdown code environments are simply rendered
 
-    $this_code_block_will_not_be_executed = true
+    LiterateMarukuTest.this_code_block_will_not_be_executed = true
 
 Annotated code environments are rendered and executed - in the root context.
 
